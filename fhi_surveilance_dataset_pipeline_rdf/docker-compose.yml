@@ -1,0 +1,118 @@
+version: '2'
+services:
+  01-downloadEcdc:
+    image: nikolayn/get-fhi-data:latest
+    command:
+    - '10'
+    - /code
+    - /gitrepo/surveillance_data/
+    - /work
+    - /out
+    environment:
+      LOG_FILE_PATH: /work/log.txt
+    stdin_open: true
+    volumes:
+      - ${PIPELINE_BASE_FOLDER}/_work00:/work
+      - ${PIPELINE_BASE_FOLDER}/_out00:/out
+  021-transformDemoRdf:
+    image: nikolayn/fhi-transform-demographics-rdf:latest
+    command: 
+    - '10'
+    - /code
+    - /in
+    - /work
+    - /out
+    - /transformation/fhi_demographics_rdf.jar
+    environment:
+      LOG_FILE_PATH: /work/log.txt
+    stdin_open: true
+    volumes:
+      - ${PIPELINE_BASE_FOLDER}/_out00:/in
+      - ${PIPELINE_BASE_FOLDER}/_work01:/work
+      - ${PIPELINE_BASE_FOLDER}/_out01:/out
+      - ${PIPELINE_BASE_FOLDER}/executable_jars:/transformation
+  022-transformHospRdf:
+    image: nikolayn/fhi-transform-hospital-by-time-rdf:latest
+    command: 
+    - '10'
+    - /code
+    - /in
+    - /work
+    - /out
+    - /transformation/fhi_hospital_by_time_rdf.jar
+    environment:
+      LOG_FILE_PATH: /work/log.txt
+    stdin_open: true
+    volumes:
+      - ${PIPELINE_BASE_FOLDER}/_out00:/in
+      - ${PIPELINE_BASE_FOLDER}/_work01:/work
+      - ${PIPELINE_BASE_FOLDER}/_out01:/out
+      - ${PIPELINE_BASE_FOLDER}/executable_jars:/transformation
+  023-transformLabRdf:
+    image: nikolayn/fhi-transform-lab-by-time-rdf:latest
+    command: 
+    - '10'
+    - /code
+    - /in
+    - /work
+    - /out
+    - /transformation/fhi_lab_by_time_rdf.jar
+    environment:
+      LOG_FILE_PATH: /work/log.txt
+    stdin_open: true
+    volumes:
+      - ${PIPELINE_BASE_FOLDER}/_out00:/in
+      - ${PIPELINE_BASE_FOLDER}/_work01:/work
+      - ${PIPELINE_BASE_FOLDER}/_out01:/out
+      - ${PIPELINE_BASE_FOLDER}/executable_jars:/transformation
+  024-transformMsisLocRdf:
+    image: nikolayn/fhi-transform-msis-by-location-rdf:latest
+    command: 
+    - '10'
+    - /code
+    - /in
+    - /work
+    - /out
+    - /transformation/fhi_msis_by_location_rdf.jar
+    environment:
+      LOG_FILE_PATH: /work/log.txt
+    stdin_open: true
+    volumes:
+      - ${PIPELINE_BASE_FOLDER}/_out00:/in
+      - ${PIPELINE_BASE_FOLDER}/_work01:/work
+      - ${PIPELINE_BASE_FOLDER}/_out01:/out
+      - ${PIPELINE_BASE_FOLDER}/executable_jars:/transformation
+  025-transformMsisTimeLocRdf:
+    image: nikolayn/fhi-transform-msis-by-time-location-rdf:latest
+    command: 
+    - '10'
+    - /code
+    - /in
+    - /work
+    - /out
+    - /transformation/fhi_msis_by_time_location_rdf.jar
+    environment:
+      LOG_FILE_PATH: /work/log.txt
+    stdin_open: true
+    volumes:
+      - ${PIPELINE_BASE_FOLDER}/_out00:/in
+      - ${PIPELINE_BASE_FOLDER}/_work01:/work
+      - ${PIPELINE_BASE_FOLDER}/_out01:/out
+      - ${PIPELINE_BASE_FOLDER}/executable_jars:/transformation
+  026-transformMsisTimeSexAgeRdf:
+    image: nikolayn/fhi-transform-msis-by-time-sex-age-rdf:latest
+    command: 
+    - '10'
+    - /code
+    - /in
+    - /work
+    - /out
+    - /transformation/fhi_msis_by_time_sex_age_rdf.jar
+    environment:
+      LOG_FILE_PATH: /work/log.txt
+    stdin_open: true
+    volumes:
+      - ${PIPELINE_BASE_FOLDER}/_out00:/in
+      - ${PIPELINE_BASE_FOLDER}/_work01:/work
+      - ${PIPELINE_BASE_FOLDER}/_out01:/out
+      - ${PIPELINE_BASE_FOLDER}/executable_jars:/transformation
