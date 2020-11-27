@@ -29,6 +29,6 @@ For posting information about bugs, questions and discussions please use the [Gi
 - [Nikolay Nikolov](https://github.com/nvnikolov) (author)
 
 ## License
-> Available under the [Apache Version 2.0 License](/LICENSE) (v1.0).
+> Available under the [Apache Version 2.0 License](/LICENSE).
 
 > Created by [Nikolay Nikolov](https://github.com/nvnikolov), 2020.
